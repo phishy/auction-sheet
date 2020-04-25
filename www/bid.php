@@ -10,8 +10,13 @@ if (!$sheet || !$spreadsheetId) {
   die('Missing id or sku');
 }
 
-$json = file_get_contents('php://input');
-$data = array_values(json_decode($json, true));
+$json = json_decode(file_get_contents('php://input'), true);
+$data = [
+  @$json['first_name'],
+  @$json['last_name'],
+  @$json['email'],
+  @$json['bid']
+];
 
 $client = getClient();
 $service = new Google_Service_Sheets($client);

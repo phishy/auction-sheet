@@ -23,7 +23,7 @@ if (empty($values)) {
     print "No data found.\n";
 } else {
     foreach ($values as $row) {
-      list($first, $last, $email, $bid) = $row;
+      @list($first, $last, $email, $bid) = $row;
       if ($bid > $highest) {
         $highest = $bid;
       }
