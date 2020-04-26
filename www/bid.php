@@ -3,8 +3,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 include 'client.php';
 
-$sheet = @$_GET['sku'];
-$spreadsheetId = @$_GET['id'];
+$sheet = @$_GET['sheet'];
+$spreadsheetId = @$_GET['doc'];
 
 if (!$sheet || !$spreadsheetId) {
   die('Missing id or sku');

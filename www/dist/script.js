@@ -1,14 +1,14 @@
 $(function () {
   let $form = $("#bid");
-  let id = $form.data("id");
-  let sku = $form.data("sku");
+  let doc = $form.data("doc");
+  let sheet = $form.data("sheet");
   let refresh = parseInt($form.data("refresh"));
 
-  renderHighestBid(id, sku);
+  renderHighestBid(doc, sheet);
 
   if (refresh) {
     setInterval(() => {
-      renderHighestBid(id, sku);
+      renderHighestBid(doc, sheet);
     }, refresh * 1000);
   }
 
@@ -16,7 +16,7 @@ $(function () {
     e.preventDefault();
     $.ajax({
       method: "POST",
-      url: `bid.php?id=${id}&sku=${sku}`,
+      url: `bid.php?doc=${doc}&sheet=${sheet}`,
       data: formToJSON($("#bid")),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
@@ -52,8 +52,8 @@ function formToJSON($form) {
 /**
  * Fetches the highest bid from the server
  */
-function renderHighestBid(id, sku) {
-  $.get(`highest.php?id=${id}&sku=${sku}`).then((res) => {
+function renderHighestBid(doc, sheet) {
+  $.get(`highest.php?doc=${doc}&sheet=${sheet}`).then((res) => {
     let data = JSON.parse(res);
     var formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
