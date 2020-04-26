@@ -1,17 +1,19 @@
 <html>
   <head> </head>
   <body>
-    <div>Current Bid: <span id="currentBid">$0</span></div>
+    <div>Current Bid: <span id="currentBid"></span></div>
     <form
       id="bid"
       data-id="1Oj3nXN_iI2veyhpLf4751HI28nMqCcgkpUupLAWzLOI"
       data-sku="CODE1"
-      data-success="https://www.google.com"
+      data-refresh="5"
+      data-success="/example.html"
+      data-error="http://www.google.com"
     >
-      <input type="text" name="bid" placeholder="Bid" />
-      <input type="text" name="first_name" placeholder="First Name" />
-      <input type="text" name="last_name" placeholder="Last Name" />
-      <input type="text" name="email" placeholder="email" />
+      <input type="number" required name="bid" placeholder="Bid" />
+      <input type="text" required name="first_name" placeholder="First Name" />
+      <input type="text" required name="last_name" placeholder="Last Name" />
+      <input type="email" required name="email" placeholder="email" />
       <button type="submit">Bid Now</button>
     </form>
     <script
