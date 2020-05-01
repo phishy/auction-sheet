@@ -7,7 +7,7 @@
 function getClient()
 {
     $client = new Google_Client();
-    $client->setApplicationName('Google Sheets API PHP Quickstart');
+    $client->setApplicationName('Give To Get Art');
     $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
     $client->setAuthConfig('../credentials.json');
     $client->setAccessType('offline');

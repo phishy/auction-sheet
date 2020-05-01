@@ -1,7 +1,11 @@
 <html>
-  <head> </head>
+  <head>
+    <link rel="stylesheet" href="example/odometer-theme-minimal.css" />
+    <!-- <link rel="stylesheet" href="https://github.hubspot.com/odometer/themes/odometer-theme-train-station.css" /> -->
+  </head>
   <body>
-    <div>Current Bid: <span id="currentBid"></span></div>
+    <div>Current Bid: $<span id="highestBid" class="odometer"></span></div>
+    <div id="error"></div>
     <form
       id="bid"
       data-doc="1Oj3nXN_iI2veyhpLf4751HI28nMqCcgkpUupLAWzLOI"
@@ -9,18 +13,31 @@
       data-refresh="5"
       data-success="/example"
       data-error="http://www.google.com"
+      data-animate="true"
     >
       <input type="number" required name="bid" placeholder="Bid" />
       <input type="text" required name="first_name" placeholder="First Name" />
       <input type="text" required name="last_name" placeholder="Last Name" />
       <input type="email" required name="email" placeholder="email" />
       <button type="submit">Bid Now</button>
+
+      <br /><br />
+      <section>
+        <b>Requirements</b>
+        <ul>
+          <li>Will not let user submit form without proper validation</li>
+          <li>Lets user submit a bid</li>
+          <li>Shows the higest bid</li>
+          <li>Bidding result show in a Google Sheet</li>
+        </ul>
+      </section>
     </form>
     <script
       src="https://code.jquery.com/jquery-3.5.0.min.js"
       integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
       crossorigin="anonymous"
     ></script>
+    <script src="example/odometer.min.js"></script>
     <script src="../dist/script.js"></script>
   </body>
 </html>

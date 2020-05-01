@@ -2,22 +2,39 @@ $(function () {
   let $form = $("#bid");
   let doc = $form.data("doc");
   let sheet = $form.data("sheet");
+  let animate = $form.data("animate");
   let refresh = parseInt($form.data("refresh"));
 
-  renderHighestBid(doc, sheet);
+  window.highestBid = 0;
+
+  renderHighestBid(doc, sheet, animate);
 
   if (refresh) {
     setInterval(() => {
-      renderHighestBid(doc, sheet);
+      renderHighestBid(doc, sheet, animate);
     }, refresh * 1000);
   }
 
+  /**
+   * Captures the form submit, and places a bid. If the current bid is lower than
+   * or equal to the current highest bid, it renders an error message.
+   */
   $form.submit((e) => {
+
     e.preventDefault();
+
+    // check to see if bid is high enough
+    let data = formToJSON($("#bid"));
+    if (parseInt(JSON.parse(data).bid) <= parseInt(highestBid)) {
+      $('#error').html('You must place a higher bid');
+      return;
+    }
+
+    // places the bid
     $.ajax({
       method: "POST",
       url: `bid.php?doc=${doc}&sheet=${sheet}`,
-      data: formToJSON($("#bid")),
+      data: data,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     })
@@ -52,13 +69,18 @@ function formToJSON($form) {
 /**
  * Fetches the highest bid from the server
  */
-function renderHighestBid(doc, sheet) {
+function renderHighestBid(doc, sheet, animate) {
   $.get(`highest.php?doc=${doc}&sheet=${sheet}`).then((res) => {
     let data = JSON.parse(res);
     var formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     });
-    $("#currentBid").html(formatter.format(data.highestBid));
+    window.highestBid = data.highestBid;
+    if (animate == true) {
+      $("#highestBid").html(data.highestBid);
+    } else {
+      $("#highestBid").html(formatter.format(data.highestBid));
+    }
   });
 }

@@ -1,29 +1,14 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-include 'client.php';
+include 'functions.php';
 
 $sheet = $_GET['sheet'];
 $spreadsheetId = $_GET['doc'];
 
 if (!$sheet || !$spreadsheetId) {
-    die('Missing id or sku');
+    die('Missing sheet or doc');
 }
 
-$client = getClient();
-$service = new Google_Service_Sheets($client);
-
-$range = $sheet;
-$response = $service->spreadsheets_values->get($spreadsheetId, $range);
-$values = (array) $response->getValues();
-
-$highest = null;
-
-foreach ($values as $row) {
-  @list($first, $last, $email, $bid) = $row;
-  if ($bid > $highest) {
-      $highest = $bid;
-  }
-}
-
+$highest = getHighestBid($spreadsheetId, $sheet);
 print json_encode(['highestBid' => $highest]);
